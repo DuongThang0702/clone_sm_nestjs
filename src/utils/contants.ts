@@ -1,2 +1,5 @@
 export enum Routes {}
-export enum Services {}
+export enum Services {
+  AUTH_SERVICE = 'AUTH_SERVICE',
+  USER_SERVICE = 'USER_SERVICE',
+}

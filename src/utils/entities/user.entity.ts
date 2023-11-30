@@ -3,15 +3,20 @@ import { Base } from './base.entity';
 
 @Entity()
 export class User extends Base {
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({
+    default: 'user',
+  })
   role: string;
 
   @Column()
   fullname: string;
+
+  @Column({ default: '' })
+  refresh_token: string;
 }

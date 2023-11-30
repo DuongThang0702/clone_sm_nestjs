@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { IUserService } from './interfaces/user.interface';
 import { UserDto } from './dtos';
 import { userDetail } from './user.types';
@@ -22,8 +22,10 @@ export class UserService implements IUserService {
     const response = await this.userRepo.find();
     return response;
   }
-  async findOne(id: number): Promise<User> {
-    const response = await this.userRepo.findOneBy({ id });
+  async findBy(data: object): Promise<User> {
+    const response = await this.userRepo.findOneBy({ ...data });
+    if (!response)
+      throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
     return response;
   }
   async create(data: userDetail): Promise<UserDto> {

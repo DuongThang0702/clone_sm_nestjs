@@ -6,7 +6,7 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 export interface IUserService {
   create(data: userDetail): Promise<UserDto>;
   find(req?: object): Promise<User[]>;
-  findOne(uid: number): Promise<User>;
+  findBy(data: object): Promise<User>;
   update(uid: number, data: object): Promise<UpdateResult>;
   delete(uid: number): Promise<DeleteResult>;
 }
