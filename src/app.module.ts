@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
+import { UserModule } from './user/user.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,11 +17,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        entities: [],
+        host: configService.get('DATABASE_HOST'),
+        entities: [join(__dirname, 'utils/entities/', '*.entities.{js,ts}')],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
+    UserModule,
   ],
 })
 export class AppModule {}
